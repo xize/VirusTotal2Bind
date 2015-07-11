@@ -52,23 +52,20 @@ public class Main {
 				}
 			}
 			if(DomainPacket.isUrl(url) || IPAddressPacket.isIp(url)) {
-				System.out.println("status: url verified, now fetching from virustotal!");
 				Packet packet1 = null;
 				if(DomainPacket.isUrl(url)) {
 					DomainPacket packet = new DomainPacket();
 					packet1 = packet;
 					packet.setDomainNameParam(url);
-					System.out.println("fetch type: fetching as domain!");
 				} else if(IPAddressPacket.isIp(url)) {	
 					IPAddressPacket packet = new IPAddressPacket();
 					packet1 = packet;
 					packet.setIpAdressParam(url);
-					System.out.println("fetch type: fetching as ip!");
 				} else {
 					System.out.println("status: unknown protocol, fetching aborted!");
 				}
+				System.out.println("status: url verified, fetching from virustotal!");
 				String bind = PacketFactory.getFactory().sentPacket(packet1);
-				System.out.println("status: fetching complete, now saving to file location " +  f.toString() + "!");
 				try {
 					FileWriter fw = new FileWriter(f, true);
 					fw.write(bind);

@@ -20,38 +20,43 @@ public class ButtonEvent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(gui.getButton())) {
-			gui.getTextArea().setText("");
-			gui.getStatus().setText("status: verifying url...");
-			gui.getDetections().setText("detections: 0");
+			
+			reset();
+			
 			String url = gui.getTextField().getText();
+			
+			gui.getStatus().setText("status: verifying text field....");
 			if(DomainPacket.isUrl(url) || IPAddressPacket.isIp(url)) {
+				
 				gui.getStatus().setText("status: url verified, fetching from virustotal!");
 				Packet packet1 = null;
+				
 				if(DomainPacket.isUrl(url)) {
 					DomainPacket packet = new DomainPacket();
 					packet1 = packet;
 					packet.setDomainNameParam(url);
-				
-					System.out.println("type: this url is a domain.");
-				
 				} else if(IPAddressPacket.isIp(url)) {	
 					IPAddressPacket packet = new IPAddressPacket();
 					packet1 = packet;
 					packet.setIpAdressParam(url);
-				
-					System.out.println("type: this url is a ip");
 				} else {
 					gui.getStatus().setText("status: unknown protocol!");
+					return;
 				}
-				String bind = PacketFactory.getFactory().sentPacket(packet1);
-				gui.getStatus().setText("status: fetching complete!");
+				
+				String bind = PacketFactory.getFactory().sentPacket(packet1, gui);
 				gui.getTextArea().setText(bind);
-				//gui.getDetections().setText("detections: " + stat.getDetections());
-				//gui.getTextArea().setText(stat.getBindFormat());
+			
 			} else {
 				gui.getStatus().setText("status: url invalid!");
 			}
 		}
+	}
+	
+	public void reset() {
+		gui.getTextArea().setText("");
+		gui.getStatus().setText("idle...");
+		gui.getDetections().setText("detections: 0");
 	}
 
 }

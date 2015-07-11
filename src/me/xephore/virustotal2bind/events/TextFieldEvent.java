@@ -45,7 +45,7 @@ public class TextFieldEvent implements KeyListener {
 					} else {
 						gui.getStatus().setText("status: unknown protocol!");
 					}
-					String bind = PacketFactory.getFactory().sentPacket(packet1);
+					String bind = PacketFactory.getFactory().sentPacket(packet1, null);
 					gui.getStatus().setText("status: fetching complete!");
 					gui.getTextArea().setText(bind);
 					//gui.getDetections().setText("detections: " + stat.getDetections());
