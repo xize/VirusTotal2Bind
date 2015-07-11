@@ -28,9 +28,9 @@ public class PacketFactory {
 				JSONParser parse = new JSONParser();
 				JSONObject array = (JSONObject) parse.parse(breader);
 				
-				PacketResolutionDecoder decoder = new PacketResolutionDecoder(array);
+				Decoder decoder = new PacketResolutionDecoder(array);
 				decoder.decode();
-				String bind = decoder.toBindFormat();
+				String bind = (String)decoder.getResult();
 				breader.close();
 				ireader.close();
 				con.disconnect();
@@ -50,7 +50,7 @@ public class PacketFactory {
 				PacketResolutionDecoder decoder = new PacketResolutionDecoder(array);
 				decoder.decode();
 				
-				String bind = decoder.toBindFormat();
+				String bind = (String)decoder.getResult();
 				breader.close();
 				ireader.close();
 				con.disconnect();

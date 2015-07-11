@@ -6,7 +6,7 @@ import java.util.Set;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class PacketResolutionDecoder {
+public class PacketResolutionDecoder implements Decoder {
 	
 	private final JSONObject obj;
 	private final Set<String> data = new HashSet<String>();
@@ -15,7 +15,8 @@ public class PacketResolutionDecoder {
 		this.obj = obj;
 	}
 	
-	public Set<String> decode() {
+	@Override
+	public void decode() {
 		data.clear();
 		JSONArray array = (JSONArray) obj.get("resolutions");
 		
@@ -29,11 +30,10 @@ public class PacketResolutionDecoder {
 				data.add(fixedip);	
 			}
 		}
-		
-		return data;
 	}
 	
-	public String toBindFormat() {
+	@Override
+	public Object getResult() {
 		String bind = "";
 		for(String a : data) {
 			if(DomainPacket.isUrl(a)) {
