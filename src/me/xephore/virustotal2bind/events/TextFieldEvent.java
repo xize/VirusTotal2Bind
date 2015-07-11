@@ -27,13 +27,16 @@ public class TextFieldEvent implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if(e.getSource().equals(gui.getTextField())) {
-				gui.getTextArea().setText("");
-				gui.getStatus().setText("status: verifying url...");
-				gui.getDetections().setText("detections: 0");
+				reset();
+				
 				String url = gui.getTextField().getText();
+				
+				gui.getStatus().setText("status: verifying text field....");
 				if(DomainPacket.isUrl(url) || IPAddressPacket.isIp(url)) {
+					
 					gui.getStatus().setText("status: url verified, fetching from virustotal!");
 					Packet packet1 = null;
+					
 					if(DomainPacket.isUrl(url)) {
 						DomainPacket packet = new DomainPacket();
 						packet1 = packet;
@@ -44,17 +47,23 @@ public class TextFieldEvent implements KeyListener {
 						packet.setIpAdressParam(url);
 					} else {
 						gui.getStatus().setText("status: unknown protocol!");
+						return;
 					}
-					String bind = PacketFactory.getFactory().sentPacket(packet1, null);
-					gui.getStatus().setText("status: fetching complete!");
+					
+					String bind = PacketFactory.getFactory().sentPacket(packet1, gui);
 					gui.getTextArea().setText(bind);
-					//gui.getDetections().setText("detections: " + stat.getDetections());
-					//gui.getTextArea().setText(stat.getBindFormat());
+				
 				} else {
 					gui.getStatus().setText("status: url invalid!");
 				}
 			}
 		}
+	}
+	
+	public void reset() {
+		gui.getTextArea().setText("");
+		gui.getStatus().setText("idle...");
+		gui.getDetections().setText("detections: 0");
 	}
 
 	@Override
