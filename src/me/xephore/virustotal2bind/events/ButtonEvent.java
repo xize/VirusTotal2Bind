@@ -45,9 +45,10 @@ public class ButtonEvent implements ActionListener {
 				}
 				
 				gui.getStatus().setText("status: fetching data...");
-				String bind = PacketFactory.getFactory().sentPacket(packet1);
+				String[] bind = PacketFactory.getFactory().sentPacket(packet1);
 				gui.getStatus().setText("status: disconnected, idle...");
-				gui.getTextArea().setText(bind);
+				gui.getTextArea().setText(bind[0]);
+				gui.getDetections().setText(bind[1]);
 			
 			} else {
 				gui.getStatus().setText("status: url invalid!");

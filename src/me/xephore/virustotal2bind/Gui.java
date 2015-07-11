@@ -112,12 +112,12 @@ public class Gui extends JFrame implements GuiApi {
 	}
 
 	@Override
-	public synchronized JLabel getStatus() {
+	public JLabel getStatus() {
 		return status;
 	}
 
 	@Override
-	public synchronized JLabel getDetections() {
+	public JLabel getDetections() {
 		return detections;
 	}
 	

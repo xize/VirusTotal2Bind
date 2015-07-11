@@ -65,10 +65,11 @@ public class Main {
 					System.out.println("status: unknown protocol, fetching aborted!");
 				}
 				System.out.println("status: url verified, fetching from virustotal!");
-				String bind = PacketFactory.getFactory().sentPacket(packet1);
+				String[] bind = PacketFactory.getFactory().sentPacket(packet1);
+				System.out.println(bind[1]);
 				try {
 					FileWriter fw = new FileWriter(f, true);
-					fw.write(bind);
+					fw.write(bind[0]);
 					fw.flush();
 					fw.close();
 					System.out.println("status: save succeeded!");
