@@ -50,7 +50,9 @@ public class TextFieldEvent implements KeyListener {
 						return;
 					}
 					
-					String bind = PacketFactory.getFactory().sentPacket(packet1, gui);
+					gui.getStatus().setText("status: fetching data...");
+					String bind = PacketFactory.getFactory().sentPacket(packet1);
+					gui.getStatus().setText("status: disconnected, idle...");
 					gui.getTextArea().setText(bind);
 				
 				} else {
