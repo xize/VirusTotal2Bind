@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import me.xephore.virustotal2bind.events.ButtonEvent;
+import me.xephore.virustotal2bind.events.TextFieldEvent;
 
 public class Gui extends JFrame implements GuiApi {
 
@@ -33,8 +34,8 @@ public class Gui extends JFrame implements GuiApi {
 	
 	public void buildContainer() {
 		setResizable(false);
-		setPreferredSize(new Dimension(500, 450));
-		setMaximumSize(new Dimension(500, 450));
+		setPreferredSize(new Dimension(500, 300));
+		setMaximumSize(new Dimension(500, 300));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Image img = null;
@@ -84,7 +85,7 @@ public class Gui extends JFrame implements GuiApi {
 		JPanel p3 = new JPanel();
 		p3.setSize(getContentPane().getWidth(), 40);
 		this.status = new JLabel("status: idle...");
-		this.detections = new JLabel("Detection score: 0");
+		this.detections = new JLabel("detections: 0");
 		p3.add(status);
 		p3.add(detections);
 		add(p3);
@@ -92,6 +93,7 @@ public class Gui extends JFrame implements GuiApi {
 	
 	public void startListeners() {
 		button.addActionListener(new ButtonEvent(this));
+		textfield.addKeyListener(new TextFieldEvent(this));
 	}
 
 	@Override
