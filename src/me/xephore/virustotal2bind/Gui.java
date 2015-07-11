@@ -32,7 +32,7 @@ public class Gui extends JFrame implements GuiApi {
 	}
 	
 	public void buildContainer() {
-		//setResizable(false);
+		setResizable(false);
 		setPreferredSize(new Dimension(500, 450));
 		setMaximumSize(new Dimension(500, 450));
 		setLocationRelativeTo(null);
@@ -41,10 +41,8 @@ public class Gui extends JFrame implements GuiApi {
 		try {
 			img = ImageIO.read(this.getClass().getResource("resources/scan.png"));
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setIconImage(img);
@@ -72,7 +70,6 @@ public class Gui extends JFrame implements GuiApi {
 		add(p1);
 	
 		JPanel p2 = new JPanel();
-		//p2.setSize(getContentPane().getWidth(), 290);
 		this.textarea = new JTextArea();
 		textarea.setPreferredSize(new Dimension(450, 290));
 		textarea.setMaximumSize(new Dimension(450, 290));
