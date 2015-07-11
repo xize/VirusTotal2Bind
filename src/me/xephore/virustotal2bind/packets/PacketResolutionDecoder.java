@@ -38,8 +38,6 @@ public class PacketResolutionDecoder implements Decoder {
 		for(String a : data) {
 			if(DomainPacket.isUrl(a)) {
 				
-				System.out.println(a);
-				
 				String as[] = a.split(".");
 				
 				String newdomain = "";
