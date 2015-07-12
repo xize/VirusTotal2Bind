@@ -30,6 +30,17 @@ public class PacketResolutionDecoder implements Decoder {
 			String ip = code.split(":")[1];
 			String fixedip = ip.substring(1, ip.length()-1).replace("www.", "");
 			if(!fixedip.contains("-")) {
+				if(DomainPacket.isUrl(fixedip)) {
+					String as[] = fixedip.split("\\.");
+					
+					String newdomain = "";
+					
+					if(as.length > 2) {
+						newdomain = as[as.length-2] + "." + as[as.length-1];
+					}
+					fixedip = newdomain;
+				}
+				
 				data.add(fixedip);	
 			}
 		}
@@ -40,22 +51,11 @@ public class PacketResolutionDecoder implements Decoder {
 		String bind = "";
 		for(String a : data) {
 			if(DomainPacket.isUrl(a)) {
-				
-				String as[] = a.split("\\.");
-				
-				String newdomain = "";
-				
-				if(as.length > 2) {
-					newdomain = as[as.length-2] + "." + as[as.length-1];
-				} else {
-					newdomain = a;
-				}
-				
-				bind += "zone \""+newdomain+"\" {\n" +
+				bind += "zone \""+a+"\" {\n" +
 				"    type master;\n" +
 				"    file \"/etc/bind/blocked.db\";\n" +
 				"};\n";
-				bind += "zone \"*."+newdomain+"\" {\n" +
+				bind += "zone \"*."+a+"\" {\n" +
 				"    type master;\n" +
 				"    file \"/etc/bind/blocked.db\";\n" +
 				"};\n";
