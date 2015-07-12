@@ -41,12 +41,12 @@ public class PacketResolutionDecoder implements Decoder {
 		for(String a : data) {
 			if(DomainPacket.isUrl(a)) {
 				
-				String as[] = a.split(".");
+				String as[] = a.split("\\.");
 				
 				String newdomain = "";
 				
-				if(as.length > 1) {
-					newdomain = as[as.length-1] + as[as.length];	
+				if(as.length > 2) {
+					newdomain = as[as.length-2] + "." + as[as.length-1];
 				} else {
 					newdomain = a;
 				}
@@ -59,11 +59,13 @@ public class PacketResolutionDecoder implements Decoder {
 				"    type master;\n" +
 				"    file \"/etc/bind/blocked.db\";\n" +
 				"};\n";
-			} else {
+			} else if(IPAddressPacket.isIp(a)) {
 				bind += "zone \""+a+"\" {\n" +
 				"    type master;\n" +
 				"    file \"/etc/bind/blocked.db\";\n" +
 				"};\n";
+			} else {
+				System.out.println("WARNING: unknown url or regex could not determine what this is!: " + a);
 			}
 		}
 		return bind;
