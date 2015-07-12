@@ -10,14 +10,17 @@ public class PacketResolutionDecoder implements Decoder {
 	
 	private final JSONObject obj;
 	private final Set<String> data = new HashSet<String>();
+	private final String sourceIp;
 	
-	public PacketResolutionDecoder(JSONObject obj) {
+	public PacketResolutionDecoder(JSONObject obj, String ip) {
 		this.obj = obj;
+		this.sourceIp = ip;
 	}
 	
 	@Override
 	public void decode() {
 		data.clear();
+		data.add(sourceIp);
 		JSONArray array = (JSONArray) obj.get("resolutions");
 		
 		String name = array.toString().replace("{", "").replace("}", "").replace("[", "").replace("]", "");

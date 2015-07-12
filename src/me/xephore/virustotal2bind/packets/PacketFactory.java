@@ -48,7 +48,7 @@ public class PacketFactory {
 						
 						System.out.println("status: fetch completed, decoding data...");
 						
-						Decoder decoder = new PacketResolutionDecoder(array);
+						Decoder decoder = new PacketResolutionDecoder(array, packet.getParams()[0]);
 						decoder.decode();
 						
 						Decoder decoder_detections = new PacketDetectionDecoder(array);
@@ -81,7 +81,7 @@ public class PacketFactory {
 						
 						System.out.println("status: fetch completed, decoding data...");
 						
-						PacketResolutionDecoder decoder = new PacketResolutionDecoder(array);
+						PacketResolutionDecoder decoder = new PacketResolutionDecoder(array, packet.getParams()[0]);
 						decoder.decode();
 						
 						Decoder decoder_detections = new PacketDetectionDecoder(array);
