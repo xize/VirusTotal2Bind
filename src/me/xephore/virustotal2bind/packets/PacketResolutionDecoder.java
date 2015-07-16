@@ -22,8 +22,10 @@ public class PacketResolutionDecoder implements Decoder {
 		data.clear();
 		JSONArray array = (JSONArray) obj.get("resolutions");
 
-		String name = array.toString().replace("{", "").replace("}", "").replace("[", "").replace("]", "");
-
+		String name = array.toString().replace("{", "").replace("}", "").replace("[", "").replace("]", "").replace("http://", "").replace("%", "");
+		
+		System.out.println(name);
+		
 		String[] args = name.split(",");
 
 		if(args.length >= 1) {
