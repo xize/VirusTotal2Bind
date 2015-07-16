@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.xephre</groupId>
 	<artifactId>virustotal2bind</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>VirusTotal2Bind</name>
 	<description>fetch all the listening ip adresses and servers on virustotal to convert to bind9 zone format in a ease.</description>
 	<build>
