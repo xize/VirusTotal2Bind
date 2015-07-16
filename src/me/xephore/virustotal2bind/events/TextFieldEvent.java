@@ -51,7 +51,7 @@ public class TextFieldEvent implements KeyListener {
 					gui.getStatus().setText("status: fetching data...");
 					String[] bind = PacketFactory.getFactory().sentPacket(new AppContainer(gui, packet1));
 					
-					if(bind[0] != null) {
+					if(bind != null && bind[0] != null) {
 						gui.getStatus().setText("status: disconnected, idle...");
 						gui.getTextArea().setText(bind[0]);
 						gui.getDetections().setText(bind[1]);
