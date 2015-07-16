@@ -42,7 +42,7 @@ public class DomainPacket implements Packet {
 	}
 
 	public static boolean isUrl(String data) {
-		Pattern p = Pattern.compile("^[A-Za-z0-9\\.]*\\.(co|biz|com|jobs|mobi|travel|net|org|pro|tel|info|xxx|name|ac|ag|am|asia|at|be|bz|cc|cn|cx|de|eu|fm|gs|hn|ht|im|in|io|it|jp|ki|la|lc|me|mn|mx|nf|nl|sb|sc|se|sh|tl|tv|tw|uk|us|vc|ws|ru|in)");
+		Pattern p = Pattern.compile("^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}$");
 		Matcher match = p.matcher(data);
 		return match.matches();
 	}
