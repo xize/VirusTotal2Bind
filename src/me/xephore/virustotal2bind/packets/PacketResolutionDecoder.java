@@ -24,7 +24,7 @@ public class PacketResolutionDecoder implements Decoder {
 
 		String name = array.toString().replace("{", "").replace("}", "").replace("[", "").replace("]", "").replace("http://", "").replace("%", "");
 		
-		System.out.println(name);
+		//System.out.println(name);
 		
 		String[] args = name.split(",");
 
