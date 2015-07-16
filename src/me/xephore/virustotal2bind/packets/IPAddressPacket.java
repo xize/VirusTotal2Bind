@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.xephore.virustotal2bind.Configuration;
+import me.xephore.virustotal2bind.enums.PacketType;
 
 public class IPAddressPacket implements Packet {
 

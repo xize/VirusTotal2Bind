@@ -1,5 +1,7 @@
 package me.xephore.virustotal2bind.packets;
 
+import me.xephore.virustotal2bind.enums.PacketType;
+
 public interface Packet {
 	
 	/**

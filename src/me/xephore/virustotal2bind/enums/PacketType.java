@@ -1,4 +1,4 @@
-package me.xephore.virustotal2bind.packets;
+package me.xephore.virustotal2bind.enums;
 
 import java.net.MalformedURLException;
 import java.net.URL;

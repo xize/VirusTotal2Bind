@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import me.xephore.virustotal2bind.GuiApi;
+import me.xephore.virustotal2bind.packets.AppContainer;
 import me.xephore.virustotal2bind.packets.DomainPacket;
 import me.xephore.virustotal2bind.packets.IPAddressPacket;
 import me.xephore.virustotal2bind.packets.Packet;
@@ -45,10 +46,18 @@ public class ButtonEvent implements ActionListener {
 				}
 				
 				gui.getStatus().setText("status: fetching data...");
-				String[] bind = PacketFactory.getFactory().sentPacket(packet1);
-				gui.getStatus().setText("status: disconnected, idle...");
-				gui.getTextArea().setText(bind[0]);
-				gui.getDetections().setText(bind[1]);
+				String[] bind = PacketFactory.getFactory().sentPacket(new AppContainer(gui, packet1));
+				
+				if(bind[0] != null) {
+					gui.getStatus().setText("status: disconnected, idle...");
+					gui.getTextArea().setText(bind[0]);
+					gui.getDetections().setText(bind[1]);
+					
+				} else {
+					//gui.getStatus().setText("status: disconnected, idle...");
+					gui.getStatus().setText("status: dns resolutions are not found in virustotals database!");
+					gui.getDetections().setText(bind[1]);
+				}
 			
 			} else {
 				gui.getStatus().setText("status: url invalid!");

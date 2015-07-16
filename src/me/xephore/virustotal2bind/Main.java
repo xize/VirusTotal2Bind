@@ -6,20 +6,21 @@ import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 
+import me.xephore.virustotal2bind.packets.ConsoleContainer;
 import me.xephore.virustotal2bind.packets.DomainPacket;
 import me.xephore.virustotal2bind.packets.IPAddressPacket;
 import me.xephore.virustotal2bind.packets.Packet;
 import me.xephore.virustotal2bind.packets.PacketFactory;
 
 public class Main {
-
+	
 	public static void main(String[] args) {
 		if(args.length == 0) {
 			SwingUtilities.invokeLater(new Runnable() {
 
 				@Override
 				public void run() {
-					Gui frame = new Gui("VirusTotal2Bind 2015 v(v0.0.2b) - the bind format converter!");
+					Gui frame = new Gui("VirusTotal2Bind 2015 v(v0.0.3b) - the bind format converter!");
 					frame.buildContainer();
 					frame.createLayout();
 					if(Configuration.getConfiguration().isGenerated()) {
@@ -65,7 +66,7 @@ public class Main {
 					System.out.println("status: unknown protocol, fetching aborted!");
 				}
 				System.out.println("status: url verified, fetching from virustotal!");
-				String[] bind = PacketFactory.getFactory().sentPacket(packet1);
+				String[] bind = PacketFactory.getFactory().sentPacket(new ConsoleContainer(packet1));
 				System.out.println(bind[1]);
 				try {
 					FileWriter fw = new FileWriter(f, true);

@@ -20,40 +20,45 @@ public class PacketResolutionDecoder implements Decoder {
 	@Override
 	public void decode() {
 		data.clear();
-		data.add(sourceIp);
 		JSONArray array = (JSONArray) obj.get("resolutions");
 
 		String name = array.toString().replace("{", "").replace("}", "").replace("[", "").replace("]", "");
 
 		String[] args = name.split(",");
 
-		if(args.length != 0) {
+		if(args.length >= 1) {
 			for(String code : args) {
-				String ip = code.split(":")[1];
-				String fixedip = ip.substring(1, ip.length()-1).replace("www.", "");
-				if(!fixedip.contains("-")) {
-					if(DomainPacket.isUrl(fixedip)) {
-						String as[] = fixedip.split("\\.");
+				if(code.contains(":")) {
+					String ip = code.split(":")[1];
+					String fixedip = ip.substring(1, ip.length()-1).replace("www.", "");
+					if(!fixedip.contains("-")) {
+						if(DomainPacket.isUrl(fixedip)) {
+							String as[] = fixedip.split("\\.");
 
-						String newdomain = "";
+							String newdomain = "";
 
-						if(as.length > 2) {
-							newdomain = as[as.length-2] + "." + as[as.length-1];
+							if(as.length > 2) {
+								newdomain = as[as.length-2] + "." + as[as.length-1];
+							}
+							fixedip = newdomain;
 						}
-						fixedip = newdomain;
-					}
 
-					data.add(fixedip);	
+						data.add(fixedip);
+					}
 				}
 			}
+		}
+		if(!data.isEmpty()) {
+			data.add(sourceIp);
 		}
 	}
 
 	@Override
 	public Object getResult() {
-		String bind = "";
+		String bind = null;
 		for(String a : data) {
 			if(DomainPacket.isUrl(a)) {
+				if(bind == null) {bind = "";}
 				bind += "zone \""+a+"\" {\n" +
 						"    type master;\n" +
 						"    file \"/etc/bind/blocked.db\";\n" +
@@ -63,6 +68,7 @@ public class PacketResolutionDecoder implements Decoder {
 						"    file \"/etc/bind/blocked.db\";\n" +
 						"};\n";
 			} else if(IPAddressPacket.isIp(a)) {
+				if(bind == null) {bind = "";}
 				bind += "zone \""+a+"\" {\n" +
 						"    type master;\n" +
 						"    file \"/etc/bind/blocked.db\";\n" +
