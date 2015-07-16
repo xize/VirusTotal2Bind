@@ -8,8 +8,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import me.xephore.virustotal2bind.enums.AppType;
-
 public class PacketFactory {
 	
 	private final static PacketFactory factory = new PacketFactory();
@@ -27,12 +25,7 @@ public class PacketFactory {
 
 			@Override
 			public String[] call() {
-				if(container.getType() == AppType.APPLICATION) {
-						return container.execute();
-					} else if(container.getType() == AppType.CONSOLE) {
-						return container.execute();
-					}
-					return null;
+				return container.execute();
 			}
 		});
 			try {
