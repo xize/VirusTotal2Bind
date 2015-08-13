@@ -1,6 +1,7 @@
 package me.xephore.virustotal2bind;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -47,5 +48,20 @@ public interface GuiApi {
 	 */
 	public JLabel getDetections();
 	
+	/**
+	 * returns the selection box of the type zone given in
+	 * 
+	 * @author xize
+	 * @return JComboBox
+	 */
+	public JComboBox getZoneTypeSelection();
+	
+	/**
+	 * returns the zone output data
+	 * 
+	 * @author xize
+	 * @return JTextField
+	 */
+	public JTextArea getZoneOutputData();
 
 }

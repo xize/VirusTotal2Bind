@@ -3,19 +3,23 @@ package me.xephore.virustotal2bind;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Insets;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import me.xephore.virustotal2bind.events.ButtonEvent;
+import me.xephore.virustotal2bind.events.SelectionEvent;
 import me.xephore.virustotal2bind.events.TextFieldEvent;
 
 public class Gui extends JFrame implements GuiApi {
@@ -27,6 +31,8 @@ public class Gui extends JFrame implements GuiApi {
 	private JTextArea textarea;
 	private JLabel status;
 	private JLabel detections;
+	private JComboBox select;
+	private JTextArea file;
 	
 	public Gui(String title) {
 		super(title);
@@ -34,8 +40,8 @@ public class Gui extends JFrame implements GuiApi {
 	
 	public void buildContainer() {
 		setResizable(false);
-		setPreferredSize(new Dimension(500, 300));
-		setMaximumSize(new Dimension(500, 300));
+		setPreferredSize(new Dimension(700, 300));
+		setMaximumSize(new Dimension(700, 300));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Image img = null;
@@ -72,14 +78,12 @@ public class Gui extends JFrame implements GuiApi {
 	
 		JPanel p2 = new JPanel();
 		this.textarea = new JTextArea();
-		textarea.setPreferredSize(new Dimension(450, 290));
-		textarea.setMaximumSize(new Dimension(450, 290));
-		textarea.setAutoscrolls(true);
 		textarea.setLineWrap(true);
-		textarea.setEditable(false);
-		textarea.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
-		
-		p2.add(textarea);
+		textarea.setWrapStyleWord(true);
+		textarea.setSize(new Dimension(500, 400));
+		textarea.setRows(8);
+		JScrollPane scroll = new JScrollPane(textarea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		p2.add(scroll);
 		add(p2);
 		
 		JPanel p3 = new JPanel();
@@ -89,11 +93,32 @@ public class Gui extends JFrame implements GuiApi {
 		p3.add(status);
 		p3.add(detections);
 		add(p3);
+		
+		JPanel p4 = new JPanel();
+		this.select = new JComboBox(new String[] {
+				"delegation-only",
+				"forward",
+				"hint",
+				"in-view",
+				"master",
+				"redirect",
+				"slave",
+				"static-stub"
+		});
+		this.select.setSelectedIndex(4);
+		this.select.setBackground(Color.WHITE);
+		this.file = new JTextArea("    type master;\n    file \"/etc/bind/blocked.db\";");
+		this.file.setMargin(new Insets(3, 8, 3, 8));
+		p4.add(select);
+		p4.add(file);
+		add(p4);
 	}
 	
 	public void startListeners() {
 		button.addActionListener(new ButtonEvent(this));
 		textfield.addKeyListener(new TextFieldEvent(this));
+		select.addActionListener(new SelectionEvent(this));
+		
 	}
 
 	@Override
@@ -119,6 +144,16 @@ public class Gui extends JFrame implements GuiApi {
 	@Override
 	public JLabel getDetections() {
 		return detections;
+	}
+
+	@Override
+	public JComboBox getZoneTypeSelection() {
+		return select;
+	}
+
+	@Override
+	public JTextArea getZoneOutputData() {
+		return file;
 	}
 	
 	
