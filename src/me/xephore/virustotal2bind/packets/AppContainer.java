@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class AppContainer extends PacketContainer {
-
+	
 	public AppContainer(GuiApi gui, Packet packet) {
 		super(gui, packet);
 	}
@@ -40,7 +40,7 @@ public class AppContainer extends PacketContainer {
 				JSONParser parse = new JSONParser();
 				JSONObject array = (JSONObject) parse.parse(breader);
 
-				Decoder decoder = new PacketResolutionDecoder(array, getPacket().getParams()[0]);
+				Decoder decoder = new PacketResolutionDecoder(array, getPacket().getParams()[0], getGui());
 				decoder.decode();
 
 				Decoder decoder_detections = new PacketDetectionDecoder(array);
@@ -67,7 +67,7 @@ public class AppContainer extends PacketContainer {
 				JSONParser parse = new JSONParser();
 				JSONObject array = (JSONObject) parse.parse(breader);
 
-				PacketResolutionDecoder decoder = new PacketResolutionDecoder(array, getPacket().getParams()[0]);
+				PacketResolutionDecoder decoder = new PacketResolutionDecoder(array, getPacket().getParams()[0], getGui());
 				decoder.decode();
 
 				Decoder decoder_detections = new PacketDetectionDecoder(array);

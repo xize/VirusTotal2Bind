@@ -3,6 +3,7 @@ package me.xephore.virustotal2bind.packets;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.xephore.virustotal2bind.GuiApi;
 import me.xephore.virustotal2bind.Main;
 
 import org.json.simple.JSONArray;
@@ -13,7 +14,14 @@ public class PacketResolutionDecoder implements Decoder {
 	private final JSONObject obj;
 	private final Set<String> data = new HashSet<String>();
 	private final String sourceIp;
-
+	private GuiApi gui;
+	
+	public PacketResolutionDecoder(JSONObject obj, String ip, GuiApi gui) {
+		this.obj = obj;
+		this.sourceIp = ip;
+		this.gui = gui;
+	}
+	
 	public PacketResolutionDecoder(JSONObject obj, String ip) {
 		this.obj = obj;
 		this.sourceIp = ip;
@@ -24,6 +32,12 @@ public class PacketResolutionDecoder implements Decoder {
 		data.clear();
 		JSONArray array = (JSONArray) obj.get("resolutions");
 
+		if(array == null) {
+			Main.getLogger().severe("could not define resolutions?, disconnected");
+			Main.getLogger().severe("obj: " + obj.toJSONString());
+			return;
+		}
+		
 		String name = array.toString().replace("{", "").replace("}", "").replace("[", "").replace("]", "").replace("http://", "").replace("%", "");
 		
 		//System.out.println(name);
@@ -64,18 +78,15 @@ public class PacketResolutionDecoder implements Decoder {
 			if(DomainPacket.isUrl(a)) {
 				if(bind == null) {bind = "";}
 				bind += "zone \""+a+"\" {\n" +
-						"    type master;\n" +
-						"    file \"/etc/bind/blocked.db\";\n" +
+						(gui == null ? "    type master;\n    file \"/etc/bind/blocked.db\"\n" : gui.getZoneOutputData().getText()) + "\n" +
 						"};\n";
 				bind += "zone \"*."+a+"\" {\n" +
-						"    type master;\n" +
-						"    file \"/etc/bind/blocked.db\";\n" +
+						(gui == null ? "    type master;\n    file \"/etc/bind/blocked.db\"\n" : gui.getZoneOutputData().getText()) + "\n" +
 						"};\n";
 			} else if(IPAddressPacket.isIp(a)) {
 				if(bind == null) {bind = "";}
 				bind += "zone \""+a+"\" {\n" +
-						"    type master;\n" +
-						"    file \"/etc/bind/blocked.db\";\n" +
+						(gui == null ? "    type master;\n    file \"/etc/bind/blocked.db\"\n" : gui.getZoneOutputData().getText()) + "\n" +
 						"};\n";
 			} else {
 				Main.getLogger().info("WARNING: unknown url or regex could not determine what this is!: " + a);

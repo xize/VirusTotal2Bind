@@ -35,6 +35,7 @@ public class ButtonEvent implements ActionListener {
 				if(DomainPacket.isUrl(url)) {
 					DomainPacket packet = new DomainPacket();
 					packet1 = packet;
+					packet.setDomainNameParam(url);
 				} else if(IPAddressPacket.isIp(url)) {	
 					IPAddressPacket packet = new IPAddressPacket();
 					packet1 = packet;

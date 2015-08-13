@@ -82,6 +82,7 @@ public class Gui extends JFrame implements GuiApi {
 		textarea.setWrapStyleWord(true);
 		textarea.setSize(new Dimension(500, 400));
 		textarea.setRows(8);
+		textarea.setEditable(false);
 		JScrollPane scroll = new JScrollPane(textarea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		p2.add(scroll);
 		add(p2);

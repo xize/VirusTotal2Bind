@@ -29,7 +29,7 @@ public class ConsoleContainer extends PacketContainer {
 		try {
 			String[] data = new String[2];
 			if(getPacket().getType() == PacketType.DOMAIN) {
-				System.out.println("status: fetching data...");
+				Main.getLogger().info("status: fetching data...");
 
 				URL url = new URL(getPacket().getType().getProvider().toString() + "?domain="+getPacket().getParams()[0] + "&apikey="+getPacket().getParams()[1]);
 				HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
@@ -65,7 +65,7 @@ public class ConsoleContainer extends PacketContainer {
 				
 				return data;
 			} else if(getPacket().getType() == PacketType.IP) {
-				System.out.println("status: fetching data...");
+				Main.getLogger().info("status: fetching data...");
 
 				URL url = new URL(getPacket().getType().getProvider().toString() + "?ip="+getPacket().getParams()[0] + "&apikey="+getPacket().getParams()[1]);
 				HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
