@@ -6,6 +6,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import me.xephore.virustotal2bind.Main;
 import me.xephore.virustotal2bind.enums.AppType;
 import me.xephore.virustotal2bind.enums.PacketType;
 
@@ -40,7 +41,7 @@ public class ConsoleContainer extends PacketContainer {
 				JSONParser parse = new JSONParser();
 				JSONObject array = (JSONObject) parse.parse(breader);
 
-				System.out.println("status: fetch completed, decoding data...");
+				Main.getLogger().info("status: fetch completed, decoding data...");
 
 				Decoder decoder = new PacketResolutionDecoder(array, getPacket().getParams()[0]);
 				decoder.decode();
@@ -48,7 +49,7 @@ public class ConsoleContainer extends PacketContainer {
 				Decoder decoder_detections = new PacketDetectionDecoder(array);
 				decoder_detections.decode();
 
-				System.out.println("status: decoding completed, closing connection!");
+				Main.getLogger().info("status: decoding completed, closing connection!");
 
 				String bind = (String)decoder.getResult();
 				String detected = (String)decoder_detections.getResult();
@@ -57,7 +58,7 @@ public class ConsoleContainer extends PacketContainer {
 				ireader.close();
 				con.disconnect();
 
-				System.out.println("status: disconnected, idle...");
+				Main.getLogger().info("status: disconnected, idle...");
 
 				data[0] = bind;
 				data[1] = detected;
@@ -76,7 +77,7 @@ public class ConsoleContainer extends PacketContainer {
 				JSONParser parse = new JSONParser();
 				JSONObject array = (JSONObject) parse.parse(breader);
 
-				System.out.println("status: fetch completed, decoding data...");
+				Main.getLogger().info("status: fetch completed, decoding data...");
 
 				PacketResolutionDecoder decoder = new PacketResolutionDecoder(array, getPacket().getParams()[0]);
 				decoder.decode();
@@ -84,7 +85,7 @@ public class ConsoleContainer extends PacketContainer {
 				Decoder decoder_detections = new PacketDetectionDecoder(array);
 				decoder_detections.decode();
 
-				System.out.println("status: decoding completed, closing connection!");
+				Main.getLogger().info("status: decoding completed, closing connection!");
 
 				String bind = (String)decoder.getResult();
 				String detected = (String)decoder_detections.getResult();
@@ -92,6 +93,8 @@ public class ConsoleContainer extends PacketContainer {
 				ireader.close();
 				con.disconnect();
 
+				Main.getLogger().info("status: disconnected, idle...");
+				
 				data[0] = bind;
 				data[1] = detected;
 				
