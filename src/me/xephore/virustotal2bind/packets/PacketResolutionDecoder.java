@@ -3,6 +3,8 @@ package me.xephore.virustotal2bind.packets;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.xephore.virustotal2bind.Main;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -76,7 +78,7 @@ public class PacketResolutionDecoder implements Decoder {
 						"    file \"/etc/bind/blocked.db\";\n" +
 						"};\n";
 			} else {
-				System.out.println("WARNING: unknown url or regex could not determine what this is!: " + a);
+				Main.getLogger().info("WARNING: unknown url or regex could not determine what this is!: " + a);
 			}
 		}
 		return bind;

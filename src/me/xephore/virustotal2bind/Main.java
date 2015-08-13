@@ -3,6 +3,7 @@ package me.xephore.virustotal2bind;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 
@@ -14,13 +15,15 @@ import me.xephore.virustotal2bind.packets.PacketFactory;
 
 public class Main {
 	
+	private final static Logger logger = Logger.getLogger("VirusTotal2Bind");
+	
 	public static void main(String[] args) {
 		if(args.length == 0) {
 			SwingUtilities.invokeLater(new Runnable() {
 
 				@Override
 				public void run() {
-					Gui frame = new Gui("VirusTotal2Bind 2015 v(v0.0.3b) - the bind format converter!");
+					Gui frame = new Gui("VirusTotal2Bind 2015 v(v0.0.4b) - the bind format converter!");
 					frame.buildContainer();
 					frame.createLayout();
 					if(Configuration.getConfiguration().isGenerated()) {
@@ -39,7 +42,7 @@ public class Main {
 				Configuration.getConfiguration().loadConfiguration();
 				//frame.startListeners();
 			} else {
-				System.out.println("please run this program for the first time in the gui!");
+				getLogger().severe("please run this program for the first time in the gui!");
 				return;
 			}
 			
@@ -49,7 +52,7 @@ public class Main {
 				try {
 					f.createNewFile();
 				} catch (IOException e) {
-					System.out.println("status: invalid file location, aborting!");
+					getLogger().severe("status: invalid file location, aborting!");
 				}
 			}
 			if(DomainPacket.isUrl(url) || IPAddressPacket.isIp(url)) {
@@ -63,25 +66,29 @@ public class Main {
 					packet1 = packet;
 					packet.setIpAdressParam(url);
 				} else {
-					System.out.println("status: unknown protocol, fetching aborted!");
+					getLogger().severe("status: unknown protocol, fetching aborted!");
 				}
-				System.out.println("status: url verified, fetching from virustotal!");
+				getLogger().info("status: url verified, fetching from virustotal!");
 				String[] bind = PacketFactory.getFactory().sentPacket(new ConsoleContainer(packet1));
-				System.out.println(bind[1]);
+				getLogger().info(bind[1]);
 				try {
 					FileWriter fw = new FileWriter(f, true);
 					fw.write(bind[0]);
 					fw.flush();
 					fw.close();
-					System.out.println("status: save succeeded!");
+					getLogger().info("status: save succeeded!");
 				} catch(Exception e) {
-					System.out.println("status: save failed!:");
+					getLogger().severe("status: save failed!:");
 					e.printStackTrace();
 				}
 			} else {
-				System.out.println("status: url invalid!");
+				getLogger().info("status: url invalid!");
 			}
 		}
+	}
+	
+	public static Logger getLogger() {
+		return logger;
 	}
 
 }
