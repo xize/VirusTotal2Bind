@@ -78,21 +78,30 @@ public class PacketResolutionDecoder implements Decoder {
 			if(DomainPacket.isUrl(a)) {
 				if(bind == null) {bind = "";}
 				bind += "zone \""+a+"\" {\n" +
-						(gui == null ? "    type master;\n    file \"/etc/bind/blocked.db\"\n" : gui.getZoneOutputData().getText()) + "\n" +
+						(gui == null ? toSpacedString("type master;\nfile \"/etc/bind/blocked.db\"") : toSpacedString(gui.getZoneOutputData().getText())) +
 						"};\n";
 				bind += "zone \"*."+a+"\" {\n" +
-						(gui == null ? "    type master;\n    file \"/etc/bind/blocked.db\"\n" : gui.getZoneOutputData().getText()) + "\n" +
+						(gui == null ? toSpacedString("type master;\nfile \"/etc/bind/blocked.db\"") : toSpacedString(gui.getZoneOutputData().getText())) +
 						"};\n";
 			} else if(IPAddressPacket.isIp(a)) {
 				if(bind == null) {bind = "";}
 				bind += "zone \""+a+"\" {\n" +
-						(gui == null ? "    type master;\n    file \"/etc/bind/blocked.db\"\n" : gui.getZoneOutputData().getText()) + "\n" +
+						(gui == null ? toSpacedString("type master;\nfile \"/etc/bind/blocked.db\"") : toSpacedString(gui.getZoneOutputData().getText())) +
 						"};\n";
 			} else {
 				Main.getLogger().info("WARNING: unknown url or regex could not determine what this is!: " + a);
 			}
 		}
 		return bind;
+	}
+	
+	private String toSpacedString(String data) {
+		String[] datas = data.split("\n");
+		String newdata = "";
+		for(String a : datas) {
+			newdata  += "    " + a + "\n";
+		}
+		return newdata;
 	}
 
 }

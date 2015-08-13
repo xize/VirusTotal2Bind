@@ -19,21 +19,21 @@ public class SelectionEvent implements ActionListener {
 			String selected = (String)gui.getZoneTypeSelection().getSelectedItem();
 			
 			if(selected.equalsIgnoreCase("delegation-only")) {
-				gui.getZoneOutputData().setText("    type master;\n   delegation-only (yes);");
+				gui.getZoneOutputData().setText("type master;\ndelegation-only (yes);");
 			} else if(selected.equalsIgnoreCase("forward")) {
-				gui.getZoneOutputData().setText("    type forward;\n    forwarders {127.0.0.1 port 53;};");
+				gui.getZoneOutputData().setText("type forward;\nforwarders {127.0.0.1 port 53;};");
 			} else if(selected.equalsIgnoreCase("hint")) {
-				gui.getZoneOutputData().setText("    type hints;\n    file \"/etc/bind/named.conf.local\";");
+				gui.getZoneOutputData().setText("type hints;\nfile \"/etc/bind/named.conf.local\";");
 			} else if(selected.equalsIgnoreCase("in-view")) {
-				gui.getZoneOutputData().setText("    in-view \"someone\";\n    forwarders {127.0.0.1 port 53;};");
+				gui.getZoneOutputData().setText("in-view \"someone\";\nforwarders {127.0.0.1 port 53;};");
 			} else if(selected.equalsIgnoreCase("master")) {
-				gui.getZoneOutputData().setText("    type master;\n    file \"/etc/bind/blocked.db\";");
+				gui.getZoneOutputData().setText("type master;\nfile \"/etc/bind/blocked.db\";");
 			} else if(selected.equalsIgnoreCase("redirect")) {
-				gui.getZoneOutputData().setText("   type redirect;\n   file \"/etc/bind/custom-nx.zone\";");
+				gui.getZoneOutputData().setText("type redirect;\nfile \"/etc/bind/custom-nx.zone\";");
 			} else if(selected.equalsIgnoreCase("slave")) {
-				gui.getZoneOutputData().setText("    type slave;\n    file \"/etc/bind/blocked.db\";\n    masters port 1127 {192.168.1.18; 192.168.1.16 key zt-key;  mac:address port 1128;};");
+				gui.getZoneOutputData().setText("type slave;\nfile \"/etc/bind/blocked.db\";\nmasters port 1127 {192.168.1.18; 192.168.1.16 key zt-key;  mac:address port 1128;};");
 			} else if(selected.equalsIgnoreCase("static-stub")) {
-				gui.getZoneOutputData().setText("    type static-stub;\n    server-addresses {127.0.0.1; mac::mac::0F};");
+				gui.getZoneOutputData().setText("type static-stub;\nserver-addresses {127.0.0.1; mac::mac::0F};");
 			}
 		}
 	}
