@@ -77,15 +77,15 @@ public class PacketResolutionDecoder implements Decoder {
 		for(String a : data) {
 			if(DomainPacket.isUrl(a)) {
 				if(bind == null) {bind = "";}
-				bind += "zone \""+a+"\" {\n" +
+				bind += "zone \""+a+"\" IN {\n" +
 						(gui == null ? toSpacedString("type master;\nfile \"/etc/bind/blocked.db\"") : toSpacedString(gui.getZoneOutputData().getText())) +
 						"};\n";
-				bind += "zone \"*."+a+"\" {\n" +
+				bind += "zone \"*."+a+"\" IN {\n" +
 						(gui == null ? toSpacedString("type master;\nfile \"/etc/bind/blocked.db\"") : toSpacedString(gui.getZoneOutputData().getText())) +
 						"};\n";
 			} else if(IPAddressPacket.isIp(a)) {
 				if(bind == null) {bind = "";}
-				bind += "zone \""+a+"\" {\n" +
+				bind += "zone \""+a+"\" IN {\n" +
 						(gui == null ? toSpacedString("type master;\nfile \"/etc/bind/blocked.db\"") : toSpacedString(gui.getZoneOutputData().getText())) +
 						"};\n";
 			} else {
