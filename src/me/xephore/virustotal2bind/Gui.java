@@ -31,7 +31,7 @@ public class Gui extends JFrame implements GuiApi {
 	private JTextArea textarea;
 	private JLabel status;
 	private JLabel detections;
-	private JComboBox select;
+	private JComboBox<String> select;
 	private JTextArea file;
 	
 	public Gui(String title) {
@@ -96,7 +96,7 @@ public class Gui extends JFrame implements GuiApi {
 		add(p3);
 		
 		JPanel p4 = new JPanel();
-		this.select = new JComboBox(new String[] {
+		this.select = new JComboBox<String>(new String[] {
 				"delegation-only",
 				"forward",
 				"hint",
@@ -148,7 +148,7 @@ public class Gui extends JFrame implements GuiApi {
 	}
 
 	@Override
-	public JComboBox getZoneTypeSelection() {
+	public JComboBox<String> getZoneTypeSelection() {
 		return select;
 	}
 

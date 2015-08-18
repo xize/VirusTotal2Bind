@@ -54,7 +54,7 @@ public interface GuiApi {
 	 * @author xize
 	 * @return JComboBox
 	 */
-	public JComboBox getZoneTypeSelection();
+	public JComboBox<String> getZoneTypeSelection();
 	
 	/**
 	 * returns the zone output data
