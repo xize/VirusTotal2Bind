@@ -23,7 +23,7 @@ public class Main {
 
 				@Override
 				public void run() {
-					Gui frame = new Gui("VirusTotal2Bind 2015 v(v0.0.5b) - the bind format converter!");
+					Gui frame = new Gui("VirusTotal2Bind 2015 v(v0.0.6b) - the bind format converter!");
 					frame.buildContainer();
 					frame.createLayout();
 					if(Configuration.getConfiguration().isGenerated()) {
