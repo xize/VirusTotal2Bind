@@ -55,7 +55,7 @@ public class ButtonEvent implements ActionListener {
 					
 				} else {
 					//gui.getStatus().setText("status: disconnected, idle...");
-					gui.getStatus().setText("status: dns resolutions are not found in virustotals database!");
+					gui.getStatus().setText("status: no dns resolutions found, or resolutions where not compatible with bind9!");
 					gui.getDetections().setText(bind[1]);
 				}
 			
