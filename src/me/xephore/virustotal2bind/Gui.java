@@ -108,7 +108,7 @@ public class Gui extends JFrame implements GuiApi {
 		});
 		this.select.setSelectedIndex(4);
 		this.select.setBackground(Color.WHITE);
-		this.file = new JTextArea("type master;\nfile \"/etc/bind/blocked.db\";");
+		this.file = new JTextArea("notify no;\ntype master;\nfile \"/etc/bind/blocked.db\";");
 		this.file.setMargin(new Insets(3, 8, 3, 8));
 		p4.add(select);
 		p4.add(file);
